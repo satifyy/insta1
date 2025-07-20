@@ -1,5 +1,8 @@
 from bs4 import BeautifulSoup
-
+"""
+This script extracts usernames from two HTML files representing Instagram followers and following lists.
+It identifies usernames that you follow but who do not follow you back.
+"""
 def extract_usernames_from_html(file_path):
     """
     Extracts usernames from the HTML file.
