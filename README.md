@@ -46,16 +46,22 @@ This tool compares your Instagram followers and following lists from your downlo
 ## Output
 
 The script will display:
-- A numbered list of usernames you follow but who don't follow you back
+- The username for each account you follow that does not follow you back
+- The direct Instagram link for that username for easy access
 - A summary showing the total count of non-reciprocal follows
 
 Example output:
 ```
 Usernames you follow but who don't follow you back:
 
-username1 (1/25)
-username2 (2/25)
-username3 (3/25)
+username1
+https://www.instagram.com/_u/username1 (1/25)
+
+username2
+https://www.instagram.com/_u/username2 (2/25)
+
+username3
+https://www.instagram.com/_u/username3 (3/25)
 ...
 
 25/150 accounts not compliant
