@@ -9,13 +9,20 @@ def extract_usernames_from_html(file_path):
         content = file.read()
     
     soup = BeautifulSoup(content, 'html.parser')
-    # Extract usernames from <a> tags with href containing 'instagram.com'
-    usernames = {a_tag.text for a_tag in soup.find_all('a', href=True) if 'instagram.com' in a_tag['href']}
+    usernames = set()
+    for a_tag in soup.find_all('a', href=True):
+        href = a_tag['href']
+        if 'instagram.com' in href:
+            # Strip trailing slash and grab the last path segment (works for both
+            # /username and /_u/username URL formats)
+            username = href.rstrip('/').split('/')[-1]
+            if username:
+                usernames.add(username)
     return usernames
 
 # File paths
-file1_path = 'file1.html'  # Replace with your first file path (Following)
-file2_path = 'file2.html'  # Replace with your second file path (Followers)
+file1_path = 'following.html'  # Replace with your first file path (Following)
+file2_path = 'followers_1.html'  # Replace with your second file path (Followers)
 
 # Extract usernames from both files
 following_usernames = extract_usernames_from_html(file1_path)
@@ -27,4 +34,4 @@ not_following_back = following_usernames - followers_usernames
 # Display results
 print("Usernames you follow but don't follow you back:")
 for username in not_following_back:
-    print(username)
+    print(f"https://www.instagram.com/{username}")
