@@ -1,9 +1,12 @@
 from bs4 import BeautifulSoup
-
+"""
+This script extracts usernames from two HTML files representing Instagram followers and following lists.
+It identifies usernames that you follow but who do not follow you back.
+"""
 def extract_usernames_from_html(file_path):
     """
-    Extracts usernames from the HTML file.
-    Usernames are found in the href attribute of <a> tags.
+    Extracts usernames and URLs from the HTML file.
+    Returns a dictionary mapping usernames to their full Instagram URLs.
     """
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
@@ -24,12 +27,17 @@ def extract_usernames_from_html(file_path):
 file1_path = 'following.html'  # Replace with your first file path (Following)
 file2_path = 'followers_1.html'  # Replace with your second file path (Followers)
 
-# Extract usernames from both files
-following_usernames = extract_usernames_from_html(file1_path)
-followers_usernames = extract_usernames_from_html(file2_path)
+# Extract usernames and URLs
+following_data = extract_usernames_from_html(file1_path)
+followers_data = extract_usernames_from_html(file2_path)
 
-# Find usernames you follow but who don't follow you back
-not_following_back = following_usernames - followers_usernames
+# Identify non-reciprocal follows
+following_usernames = set(following_data.keys())
+followers_usernames = set(followers_data.keys())
+not_following_back = sorted(following_usernames - followers_usernames)
+
+total_accounts = len(following_usernames)
+not_compliant_count = len(not_following_back)
 
 # Display results
 print("Usernames you follow but don't follow you back:")
